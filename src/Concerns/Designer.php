@@ -2,21 +2,30 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\Tabs\Tab;
-use Filament\Forms\Components\Wizard;
-use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Get;
-use LaraZeus\Bolt\Facades\Bolt;
-use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Form;
+use LaraZeus\Bolt\Facades\Bolt;
+use Illuminate\Support\Collection;
+use LaraZeus\Bolt\Models\Response;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Wizard;
+use LaraZeus\Bolt\Facades\Extensions;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs\Tab;
+use Filament\Forms\Components\Wizard\Step;
 use LaraZeus\Bolt\Models\Section as ZeusSection;
 
 trait Designer
 {
-    public static function ui(Form $zeusForm, bool $inline = false): array
+    public static function ui(Form $zeusForm, bool $inline = false, ?int $responseId = null): array
     {
+        // If we've got a responseId on the livewire component, then fetch the response from the database
+        $fieldResponses = null;
+        if (!empty($responseId)) {
+            $response = Response::find($responseId);
+            $fieldResponses = $response?->fieldsResponses;
+        }
+        
         $sections = self::drawExt($zeusForm);
         $hasSectionVisibility = $zeusForm->sections->pluck('options')->where('visibility.active', true)->isNotEmpty();
 
@@ -24,7 +33,7 @@ trait Designer
             $sections[] = self::drawSections(
                 $zeusForm,
                 $section,
-                self::drawFields($section, $inline, $hasSectionVisibility),
+                self::drawFields($section, $inline, $hasSectionVisibility, $fieldResponses),
             );
         }
 
@@ -65,7 +74,7 @@ trait Designer
         ];
     }
 
-    private static function drawFields(ZeusSection $section, bool $inline, bool $hasSectionVisibility = false): array
+    private static function drawFields(ZeusSection $section, bool $inline, bool $hasSectionVisibility = false, ?Collection $responses = null): array
     {
         $hasVisibility = $hasSectionVisibility || $section->fields->pluck('options')->where('visibility.active', true)->isNotEmpty();
 
@@ -82,6 +91,16 @@ trait Designer
 
             $fieldClass = new $zeusField->type;
             $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
+
+            // Look through our collection of responses and if we have the current field, set the response as the default on the field component
+            if (!is_null($responses)) {
+                $fieldResponse = $responses->first(function ($item) use ($zeusField) {
+                    return $item->field_id === $zeusField->id;
+                });
+                if ($fieldResponse) {
+                    $component->default($fieldResponse->response);
+                }
+            }
 
             $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
