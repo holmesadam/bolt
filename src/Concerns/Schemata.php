@@ -79,15 +79,22 @@ trait Schemata
                                     'lg' => 3,
                                     '2xl' => 5,
                                 ])
+                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('grid') === false)
                                 ->label(__('Section icon')),
                             Toggle::make('aside')
                                 ->default(false)
-                                ->visible($formOptions['show-as'] === 'page')
+                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('grid') === false)
                                 ->label(__('show as aside')),
-                            Toggle::make('compact')
+                            Toggle::make('grid')
+                                ->live()
                                 ->default(false)
                                 ->visible($formOptions['show-as'] === 'page')
-                                ->label(__('compact section')),
+                                ->label(__('Use Grid'))
+                                ->hint('Use a Grid instead of a Section'),
+                            Toggle::make('compact')
+                                ->default(false)
+                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('grid') === false)
+                                ->label(__('Compact section')),
                         ]),
                     self::visibility($allSections),
                     Bolt::getCustomSchema('section') ?? [],
@@ -439,6 +446,7 @@ trait Schemata
 
             Hidden::make('compact')->default(0)->nullable(),
             Hidden::make('aside')->default(0)->nullable(),
+            Hidden::make('grid')->default(0)->nullable(),
             Hidden::make('icon')->nullable(),
             Hidden::make('columns')->default(1)->nullable(),
             Hidden::make('description')->nullable(),

@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Concerns;
 use Filament\Forms\Get;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Facades\Bolt;
+use Filament\Forms\Components\Grid;
 use Illuminate\Support\Collection;
 use LaraZeus\Bolt\Models\Response;
 use Filament\Forms\Components\Tabs;
@@ -116,7 +117,7 @@ trait Designer
         return $fields;
     }
 
-    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tab | Step | Section
+    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tab | Step | Section | Grid
     {
         if (optional($zeusForm->options)['show-as'] === 'tabs') {
             $component = Tab::make($section->name)
@@ -127,6 +128,8 @@ trait Designer
              //   ->live()
                 ->description($section->description)
                 ->icon($section->icon ?? null);
+        } elseif ($section->grid == true) {
+            $component = Grid::make($section->name);
         } else {
             $component = Section::make($section->name)
                 //  ->live()
