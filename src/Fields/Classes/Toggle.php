@@ -126,7 +126,7 @@ class Toggle extends FieldsContract
             $component = $component->offColor(Color::hex($zeusField->options['off-color']));
         }
 
-        if (optional($zeusField->options)['is-inline']) {
+        if (isset($zeusField->options['is-inline'])) {
             $component = $component->inline($zeusField->options['is-inline']);
         }
 
