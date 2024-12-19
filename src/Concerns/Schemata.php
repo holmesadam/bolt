@@ -380,9 +380,9 @@ trait Schemata
                     $originalItem = $items[$arguments['item']];
                     $clonedItem = array_merge($originalItem, [
                         'name' => $originalItem['name'] . ' new',
-                        'options' => [
+                        'options' => array_merge($originalItem['options'], [
                             'htmlId' => $originalItem['options']['htmlId'] . Str::random(2),
-                        ],
+                        ]),
                     ]);
 
                     $items[] = $clonedItem;
