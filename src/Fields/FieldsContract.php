@@ -138,6 +138,11 @@ abstract class FieldsContract implements Arrayable, Fields
                 }
 
                 $relatedFieldArray = Arr::wrap($get('zeusData.' . $relatedField));
+
+                // In the example where a field is only visible when the related field is NOT checked, 
+                // we need to convert booleans to strings for in_array comparison
+                $relatedFieldArray = array_map(fn($value) => is_bool($value) ? ($value ? 'true' : 'false') : $value, $relatedFieldArray);
+                
                 if (in_array($relatedFieldValues, $relatedFieldArray)) {
                     return true;
                 }
