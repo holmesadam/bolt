@@ -43,6 +43,7 @@ class FileUpload extends FieldsContract
                             \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
                             self::required(),
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -60,6 +61,7 @@ class FileUpload extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
             self::hiddenVisibility(),
             Hidden::make('options.allow_multiple')->default(false),
         ];

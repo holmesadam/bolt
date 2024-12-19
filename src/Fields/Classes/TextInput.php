@@ -110,6 +110,7 @@ class TextInput extends FieldsContract
                                 ->label(__('Suffix Icon Color')),
 
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -132,6 +133,7 @@ class TextInput extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
 
             Hidden::make('options.dateType'),
 

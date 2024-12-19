@@ -112,6 +112,10 @@ abstract class FieldsContract implements Arrayable, Fields
             $component = $component->columnSpanFull();
         }
 
+        if (optional($zeusField->options)['hidden_label']) {
+            $component = $component->hiddenLabel();
+        }
+
         if (optional($zeusField->options)['hint']) {
             if (optional($zeusField->options)['hint']['text']) {
                 $component = $component->hint($zeusField->options['hint']['text']);

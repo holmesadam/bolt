@@ -121,6 +121,16 @@ trait HasOptions
             ->columns(1);
     }
 
+    public static function hiddenLabel(): Grid
+    {
+        return Grid::make()
+            ->schema([
+                Toggle::make('options.hidden_label')
+                    ->label(__('Hidden Label')),
+            ])
+            ->columns(1);
+    }
+
     public static function dataSource(): Grid
     {
         $dataSources = BoltPlugin::getModel('Collection')::get()

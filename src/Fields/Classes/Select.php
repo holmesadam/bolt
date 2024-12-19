@@ -47,6 +47,7 @@ class Select extends FieldsContract
                         ->schema([
                             self::required(),
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -69,6 +70,7 @@ class Select extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
             Hidden::make('options.dataSource'),
             Hidden::make('options.allow_multiple')->default(false),
         ];

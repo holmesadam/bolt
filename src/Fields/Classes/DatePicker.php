@@ -39,6 +39,7 @@ class DatePicker extends FieldsContract
                         ->schema([
                             self::required(),
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -60,6 +61,7 @@ class DatePicker extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
             self::hiddenVisibility(),
         ];
     }

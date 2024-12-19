@@ -177,6 +177,7 @@
   "fields per row" :"fields per row",
   "Full Width" :"Full Width",
   "show this field in full width row" :"show this field in full width row",
+  "Hidden Label": "Étiquette cachée",
   "open" :"open",
   "Open Form" :"Open Form",
   "Conditional Visibility" :"Conditional Visibility",

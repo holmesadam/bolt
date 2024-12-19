@@ -39,6 +39,7 @@ class Paragraph extends FieldsContract
                         ->icon('iconpark-checklist-o')
                         ->schema([
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::hintOptions(),
                         ]),
                     self::visibility($sections),
@@ -51,6 +52,7 @@ class Paragraph extends FieldsContract
         return [
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
             self::hiddenVisibility(),
         ];
     }

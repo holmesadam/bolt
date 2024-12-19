@@ -39,6 +39,7 @@ class TimePicker extends FieldsContract
                         ->schema([
                             self::required(),
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -61,6 +62,7 @@ class TimePicker extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
         ];
     }
 }

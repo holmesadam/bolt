@@ -45,6 +45,7 @@ class Radio extends FieldsContract
                             self::required(),
                             Toggle::make('options.is_inline')->label(__('Is inline')),
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -67,6 +68,7 @@ class Radio extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
             Hidden::make('options.dataSource'),
             Hidden::make('options.is_inline')->default(false),
         ];
