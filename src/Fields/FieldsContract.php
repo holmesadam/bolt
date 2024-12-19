@@ -121,7 +121,7 @@ abstract class FieldsContract implements Arrayable, Fields
                 $component = $component->hint($zeusField->options['hint']['text']);
             }
             if (optional($zeusField->options)['hint']['icon']) {
-                $component = $component->hintIcon($zeusField->options['hint']['icon'], tooltip: $zeusField->options['hint']['icon-tooltip'] ?? $zeusField->options['hint']['text']);
+                $component = $component->hintIcon($zeusField->options['hint']['icon'], tooltip: $zeusField->options['hint']['icon-tooltip']);
             }
             if (optional($zeusField->options)['hint']['color']) {
                 $component = $component->hintColor(fn () => Color::hex($zeusField->options['hint']['color']));
