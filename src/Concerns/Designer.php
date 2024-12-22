@@ -21,9 +21,8 @@ trait Designer
     {
         // If we've got a responseId on the livewire component, then fetch the response from the database
         $fieldResponses = null;
-        if (!empty($responseId)) {
-            $response = Response::find($responseId);
-            $fieldResponses = $response?->fieldsResponses;
+        if (filled($responseId)) {
+            $fieldResponses = Response::find($responseId)?->fieldsResponses;
         }
         
         $sections = self::drawExt($zeusForm);
@@ -93,7 +92,7 @@ trait Designer
             $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
 
             // Look through our collection of responses and if we have the current field, set the response as the default on the field component
-            if (!is_null($responses)) {
+            if ($responses !== null) {
                 $fieldResponse = $responses->first(function ($item) use ($zeusField) {
                     return $item->field_id === $zeusField->id;
                 });
